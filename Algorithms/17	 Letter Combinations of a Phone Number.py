@@ -1,49 +1,44 @@
+class Solution:
+    
     digit_voc = {'2': ['a','b','c'],
                  '3': ['d','e','f'],
                  '4': ['g','h','i'],
                  '5': ['j','k','l'],
-                 '6': ['j','k','l'],
+                 '6': ['m','n','o'],
                  '7': ['p','q','r','s'],
                  '8': ['t','u','v'],
                  '9': ['w','x','y','z']}
     
-    def Call(self,str):
-        str_new = ''
-        matrix = []
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        
+        if len(digits) == 0:
+            return []
+        
         result = []
-        for i in str:
-           #str_new = ''.join(self.digit_voc[i])
-           #print(self.digit_voc[i])
-           if len(self.digit_voc[i]) == 3:
-               matrix.append(self.digit_voc[i] + [''])
-           else:
-               matrix.append(self.digit_voc[i])
-
-        #print(matrix)
-
-        for i in range(0,len(matrix)):
-            for j in range(0,4):
-                if i > 0 and j > 0:
-                    if len(matrix[0][0]+matrix[i][j]) > 1:
-                        result.append(matrix[0][0]+matrix[i][j])
-                if i > 0 and j == 0:
-                    result.append(matrix[0][0] + matrix[i][j])
-                if i > 0 and j > 0:
-                    if len(matrix[0][1] + matrix[i][j]) > 1:
-                        result.append(matrix[0][1] + matrix[i][j])
-                if i > 0 and j == 0:
-                    result.append(matrix[0][1] + matrix[i][j])
-                if i > 0 and j > 0:
-                    if len(matrix[0][2] + matrix[i][j]) > 1:
-                        result.append(matrix[0][2] + matrix[i][j])
-                if i > 0 and j == 0:
-                    result.append(matrix[0][2] + matrix[i][j])
-                if i > 0 and j > 0:
-                    if len(matrix[0][3] + matrix[i][j]) > 1:
-                        result.append(matrix[0][3] + matrix[i][j])
-                if i > 0 and j == 0:
-                    if len(matrix[0][3] + matrix[i][j]) > 1:
-                        result.append(matrix[0][3] + matrix[i][j])
-
-                #print(matrix[i][j])
-        print(result)
+        l = Solution()
+        l.Call2(digits,result)
+        return result
+        
+    def Call2(self,str,result):
+        #print(self.digit_voc[str[0]]+self.digit_voc[str[1:]])
+        count = 0
+        
+        self.Call3(str,"", count, result, str)
+        return result
+        
+    def Call3(self,str,letter, count, result, original_str):
+        #print('len_str: ',len(original_str))
+        if len(letter) == len(original_str): 
+            result.append(letter)
+            #print(result)
+            #print('count: ',count)
+            return result
+        else:
+            for j in self.digit_voc[str[0]]:
+                self.Call3(str[1:], letter + j, count, result, original_str)    
+                        
+        return result                
