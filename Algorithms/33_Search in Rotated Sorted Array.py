@@ -33,7 +33,7 @@ class Solution:
 
         if array[mid] > array[mid+1] and mid < high:
             return mid
-        if array[mid] < array[mid] and mid > low:
+        if array[mid] < array[mid-1] and mid > low:
             return (mid-1)
         if array[low]>array[mid]:
             return self.FindPivot(array,low, mid-1)
