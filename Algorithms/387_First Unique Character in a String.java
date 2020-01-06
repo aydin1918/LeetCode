@@ -1,3 +1,25 @@
+/* Super faster solution */
+
+class Solution {
+    public int firstUniqChar(String s) {
+        int len = s.length(), minLen = s.length();
+
+        for (char c='a'; c<='z'; c++)
+        {
+            int firstPosition = s.indexOf(c);
+            int lastPosition = s.lastIndexOf(c);
+            if (firstPosition == lastPosition && firstPosition != -1)
+            {
+                minLen = Math.min(minLen, firstPosition);
+            }
+        }
+
+        return minLen == len ? - 1 : minLen;
+    }
+}
+
+/* Simple solution */
+
 class Solution {
     public int firstUniqChar(String s) {
         LinkedHashMap<Character, Integer> map = new LinkedHashMap<>();
