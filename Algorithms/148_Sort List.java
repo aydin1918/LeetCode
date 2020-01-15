@@ -14,20 +14,34 @@ class Solution {
     
     private ListNode sortElements(ListNode left, ListNode right)
     {
-        ListNode result = null;
         if (left == null) return right;
         if (right == null) return left;
         
-        if (left.val <= right.val){
-            result = left;
-            result.next = sortElements(left.next, right);
-        }
-        else{
-            result = right;
-            result.next = sortElements(left, right.next);
+        ListNode result = new ListNode(0);
+        ListNode dummy = result;
+        
+        while (left!=null && right!=null)
+        {
+            if (left.val < right.val){
+                dummy.next = left;
+                left = left.next;
+            }
+            else{
+                dummy.next = right;
+                right = right.next;
+            }
+            dummy = dummy.next;
         }
         
-        return result;
+        if (left!=null) {
+            dummy.next = left;
+        }
+        
+        if (right !=null){
+            dummy.next = right;
+        }
+        
+        return result.next;
     }
     
     private ListNode mergeSort(ListNode node)
